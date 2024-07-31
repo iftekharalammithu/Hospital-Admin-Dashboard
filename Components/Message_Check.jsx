@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../src/main";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -32,9 +32,9 @@ const Message_Check = () => {
       <h1>Message</h1>
       <div className="banner">
         {message && message.length > 0 ? (
-          message.map((message) => {
+          message.map((message, index) => {
             return (
-              <div className="card">
+              <div key={index} className="card">
                 <div className="details">
                   <p>
                     First Name: <span>{message.firstName}</span>

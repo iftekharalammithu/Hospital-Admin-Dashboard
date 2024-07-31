@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../src/main";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   const handleUpdatestatus = async (appointment_id, status) => {
     try {
-      console.log(appointment_id, status);
+      // console.log(appointment_id, status);
       await axios
         .put(
           `http://localhost:4000/api/v1/appintment/update_appointment/${appointment_id}`,
@@ -33,7 +33,7 @@ const Dashboard = () => {
             )
           );
           toast.success(response.data.message);
-          console.log("Appointment updated successfully:", response.data);
+          // console.log("Appointment updated successfully:", response.data);
         })
         .catch((error) => {
           toast.error(error.message);
@@ -109,53 +109,54 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {appointment && appointment.length > 0
-                ? appointment.map((data_appoint) => {
-                    return (
-                      <tr key={data_appoint._id}>
-                        <td>{`${data_appoint.firstName} ${data_appoint.lastName}`}</td>
-                        <td>{data_appoint.appointment_date}</td>
-                        <td>{data_appoint.doctor_name.firstName}</td>
-                        <td>{data_appoint.deperment}</td>
-                        <td>
-                          <select
-                            onChange={(e) =>
-                              handleUpdatestatus(
-                                data_appoint._id,
-                                e.target.value
-                              )
-                            }
-                            className={
-                              data_appoint.status === "Pending"
-                                ? "value-pending"
-                                : data_appoint.status === "Accepted"
-                                ? "value-accepted"
-                                : "value-rejected"
-                            }
-                            value={data_appoint.status}
-                          >
-                            <option value="Pending" className="value-pending">
-                              Pending
-                            </option>
-                            <option value="Accepted" className="value-accepted">
-                              Accepted
-                            </option>
-                            <option value="Rejected" className="value-rejected">
-                              Rejected
-                            </option>
-                          </select>
-                        </td>
-                        <td>
-                          {data_appoint.has_visited ? (
-                            <GoCheckCircleFill className="green"></GoCheckCircleFill>
-                          ) : (
-                            <AiFillCloseCircle className="red"></AiFillCloseCircle>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })
-                : "No Appointments Found!"}
+              {appointment && appointment.length > 0 ? (
+                appointment.map((data_appoint) => {
+                  return (
+                    <tr key={data_appoint._id}>
+                      <td>{`${data_appoint.firstName} ${data_appoint.lastName}`}</td>
+                      <td>{data_appoint.appointment_date}</td>
+                      <td>{data_appoint.doctor_name.firstName}</td>
+                      <td>{data_appoint.deperment}</td>
+                      <td>
+                        <select
+                          onChange={(e) =>
+                            handleUpdatestatus(data_appoint._id, e.target.value)
+                          }
+                          className={
+                            data_appoint.status === "Pending"
+                              ? "value-pending"
+                              : data_appoint.status === "Accepted"
+                              ? "value-accepted"
+                              : "value-rejected"
+                          }
+                          value={data_appoint.status}
+                        >
+                          <option value="Pending" className="value-pending">
+                            Pending
+                          </option>
+                          <option value="Accepted" className="value-accepted">
+                            Accepted
+                          </option>
+                          <option value="Rejected" className="value-rejected">
+                            Rejected
+                          </option>
+                        </select>
+                      </td>
+                      <td>
+                        {data_appoint.has_visited ? (
+                          <GoCheckCircleFill className="green"></GoCheckCircleFill>
+                        ) : (
+                          <AiFillCloseCircle className="red"></AiFillCloseCircle>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="6">No Appointments Found!</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

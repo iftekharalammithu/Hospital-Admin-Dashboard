@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddNewDoctor from "../Components/AddNewDoctor";
 import Doctors from "../Components/Doctors";
 import Dashboard from "../Components/Dashboard";
@@ -23,7 +23,8 @@ const App = () => {
           "http://localhost:4000/api/v1/user/admin/me",
           { withCredentials: true }
         );
-        // console.log(res);
+
+        console.log(res);
         if (res.data.success) {
           setuser(res.data);
           setAuth(true);
@@ -31,7 +32,7 @@ const App = () => {
       } catch (error) {
         setAuth(false);
         setuser("");
-        console.log(error);
+        console.log(error.message);
       }
     };
     getuser();

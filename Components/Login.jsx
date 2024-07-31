@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../src/main";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -61,7 +61,7 @@ const Login = () => {
   };
   return (
     <div className="container  form-component ">
-      <img src="public\logo.png" alt="" />
+      <img src="/logo.png" alt="logo" />
       <h1 className="form-title">Welcome To Health Care</h1>
       <p>Only Admin Allow To Login</p>
       <form onSubmit={handleSubmit}>
